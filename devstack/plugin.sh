@@ -67,6 +67,12 @@ function configure_cinder_nfs {
         ${NFS_SECURE_FILE_OPERATIONS}
     iniset $CINDER_CONF nfs nas_secure_file_permissions \
         ${NFS_SECURE_FILE_PERMISSIONS}
+
+    # Point Cinder to the Nova service correctly
+    # Cinder's defaults don't match what devstack sets up.
+    iniset $CINDER_CONF DEFAULT nova_catalog_info compute:nova:publicURL
+    iniset $CINDER_CONF DEFAULT nova_catalog_admin_info compute:nova:adminURL
+
 }
 
 
