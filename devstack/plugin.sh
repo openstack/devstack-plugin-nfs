@@ -29,6 +29,8 @@ function install_nfs {
 
 function configure_nfs {
     sudo mkdir -p $NFS_EXPORT_DIR
+    sudo chown $STACK_USER $NFS_EXPORT_DIR
+
     sudo mkdir -p /etc/exports.d
 
     cat <<EOF | sudo tee ${STACK_NFS_CONF}>/dev/null
