@@ -78,6 +78,14 @@ function configure_cinder_nfs {
 
 }
 
+# Configures tempest for running Cinder volume API tests with an NFS backend.
+function configure_tempest_nfs {
+    # The Cinder NFS backend doesn't yet support snapshot, backup or clone.
+    iniset $TEMPEST_CONFIG volume-feature-enabled snapshot False
+    iniset $TEMPEST_CONFIG volume-feature-enabled backup False
+    iniset $TEMPEST_CONFIG volume-feature-enabled clone False
+}
+
 
 if [[ "$1" == "stack" && "$2" == "pre-install" ]]; then
     echo_summary "Installing NFS"
@@ -90,6 +98,10 @@ elif [[ "$1" == "stack" && "$2" == "post-config" ]]; then
     if is_nfs_enabled_for_service cinder; then
         configure_cinder_nfs
         sudo service $NFS_SERVICE restart
+    fi
+elif [[ "$1" == "stack" && "$2" == "test-config" ]]; then
+    if is_nfs_enabled_for_service cinder; then
+        configure_tempest_nfs
     fi
 fi
 
