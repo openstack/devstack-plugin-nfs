@@ -81,7 +81,7 @@ function configure_cinder_nfs {
 # Configures tempest for running Cinder volume API tests with an NFS backend.
 function configure_tempest_nfs {
     # The Cinder NFS backend doesn't yet support snapshot, backup or clone.
-    iniset $TEMPEST_CONFIG volume-feature-enabled snapshot False
+    iniset $TEMPEST_CONFIG volume-feature-enabled snapshot True
     iniset $TEMPEST_CONFIG volume-feature-enabled backup False
     iniset $TEMPEST_CONFIG volume-feature-enabled clone False
     iniset $TEMPEST_CONFIG volume-feature-enabled manage_snapshot False
