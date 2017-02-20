@@ -82,7 +82,7 @@ function configure_tempest_nfs {
     # The Cinder NFS backend doesn't yet support snapshot, backup or clone.
     iniset $TEMPEST_CONFIG volume-feature-enabled snapshot True
     iniset $TEMPEST_CONFIG volume-feature-enabled backup False
-    iniset $TEMPEST_CONFIG volume-feature-enabled clone False
+    iniset $TEMPEST_CONFIG volume-feature-enabled clone True
     iniset $TEMPEST_CONFIG volume-feature-enabled manage_snapshot False
 
     iniset $TEMPEST_CONFIG compute-feature-enabled attach_encrypted_volume False
