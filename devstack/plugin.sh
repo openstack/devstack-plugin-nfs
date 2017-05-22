@@ -84,6 +84,8 @@ function configure_tempest_nfs {
     iniset $TEMPEST_CONFIG volume-feature-enabled backup False
     iniset $TEMPEST_CONFIG volume-feature-enabled clone False
     iniset $TEMPEST_CONFIG volume-feature-enabled manage_snapshot False
+
+    iniset $TEMPEST_CONFIG compute-feature-enabled attach_encrypted_volume False
 }
 
 
