@@ -109,8 +109,10 @@ fi
 
 if [[ "$1" == "unstack" ]]; then
     # Unmount any NFS shares mounted by Cinder
-    find ${DATA_DIR}/cinder/mnt -mindepth 1 -maxdepth 1 -type d \
-        | sudo xargs umount -l
+    if [[ -d ${DATA_DIR}/cinder/mnt ]]; then
+        find ${DATA_DIR}/cinder/mnt -mindepth 1 -maxdepth 1 -type d \
+            | sudo xargs umount -l
+    fi
 
     sudo rm -f ${STACK_NFS_CONF}
 
