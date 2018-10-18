@@ -1,7 +1,4 @@
-#
-
-XTRACE=$(set +o | grep xtrace)
-set +o xtrace
+# Devstack NFS plugin
 
 NFS_EXPORT_DIR=${NFS_EXPORT_DIR:-/srv/nfs1}
 STACK_NFS_CONF=${STACK_NFS_CONF:-/etc/exports.d/stack_nfs.exports}
@@ -120,6 +117,3 @@ if [[ "$1" == "unstack" ]]; then
     # interfere with other NFS exports.
     sudo service $NFS_SERVICE reload
 fi
-
-
-$XTRACE
