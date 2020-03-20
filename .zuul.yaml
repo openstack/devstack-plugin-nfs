@@ -23,11 +23,11 @@
         * legacy-tempest-dsvm-full-devstack-plugin-nfs
     timeout: 10800
     required-projects:
-      - opendev.org/x/devstack-plugin-nfs
+      - opendev.org/openstack/devstack-plugin-nfs
     host-vars:
       controller:
         devstack_plugins:
-          devstack-plugin-nfs: https://opendev.org/x/devstack-plugin-nfs
+          devstack-plugin-nfs: https://opendev.org/openstack/devstack-plugin-nfs
     vars:
       devstack_localrc:
         ENABLE_NFS_CINDER: true
@@ -53,11 +53,11 @@
         * legacy-tempest-dsvm-full-devstack-plugin-nfs
     timeout: 10800
     required-projects:
-      - opendev.org/x/devstack-plugin-nfs
+      - opendev.org/openstack/devstack-plugin-nfs
     host-vars:
       controller:
         devstack_plugins:
-          devstack-plugin-nfs: https://opendev.org/x/devstack-plugin-nfs
+          devstack-plugin-nfs: https://opendev.org/openstack/devstack-plugin-nfs
     vars:
       devstack_localrc:
         ENABLE_NFS_CINDER: true
