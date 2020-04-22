@@ -1,4 +1,6 @@
 - project:
+    templates:
+      - publish-openstack-docs-pti
     check:
       jobs:
         - devstack-plugin-nfs-tempest-full
@@ -33,7 +35,9 @@
         ENABLE_NFS_CINDER: true
         # enabled by default in tempest-full:
         ENABLE_VOLUME_MULTIATTACH: false
-    irrelevant-files:
+    irrelevant-files: &gate-irrelevant-files
+      - ^.*\.rst$
+      - ^doc/.*$
       - ^(test-|)requirements.txt$
       - ^setup.cfg$
     branches:
@@ -63,9 +67,7 @@
         ENABLE_NFS_CINDER: true
         # enabled by default in tempest-full:
         ENABLE_VOLUME_MULTIATTACH: false
-    irrelevant-files:
-      - ^(test-|)requirements.txt$
-      - ^setup.cfg$
+    irrelevant-files: *gate-irrelevant-files
     branches: ^(?!stable/(ocata|pike|queens|rocky|stein|train)).*$
 
 - job:
