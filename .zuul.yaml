@@ -4,17 +4,15 @@
     check:
       jobs:
         - devstack-plugin-nfs-tempest-full
+        - devstack-plugin-nfs-tempest-full-ussuri
         - devstack-plugin-nfs-tempest-full-train
         - devstack-plugin-nfs-tempest-full-stein
-        - devstack-plugin-nfs-tempest-full-rocky
-        - devstack-plugin-nfs-tempest-full-queens
     gate:
       jobs:
         - devstack-plugin-nfs-tempest-full
+        - devstack-plugin-nfs-tempest-full-ussuri
         - devstack-plugin-nfs-tempest-full-train
         - devstack-plugin-nfs-tempest-full-stein
-        - devstack-plugin-nfs-tempest-full-rocky
-        - devstack-plugin-nfs-tempest-full-queens
 
 - job:
     name: devstack-plugin-nfs-tempest-full
@@ -71,6 +69,11 @@
     branches: ^(?!stable/(ocata|pike|queens|rocky|stein|train)).*$
 
 - job:
+    name: devstack-plugin-nfs-tempest-full-ussuri
+    parent: devstack-plugin-nfs-tempest-full
+    override-checkout: stable/ussuri
+
+- job:
     name: devstack-plugin-nfs-tempest-full-train
     parent: devstack-plugin-nfs-tempest-full
     override-checkout: stable/train
@@ -79,13 +82,3 @@
     name: devstack-plugin-nfs-tempest-full-stein
     parent: devstack-plugin-nfs-tempest-full
     override-checkout: stable/stein
-
-- job:
-    name: devstack-plugin-nfs-tempest-full-rocky
-    parent: devstack-plugin-nfs-tempest-full
-    override-checkout: stable/rocky
-
-- job:
-    name: devstack-plugin-nfs-tempest-full-queens
-    parent: devstack-plugin-nfs-tempest-full
-    override-checkout: stable/queens
