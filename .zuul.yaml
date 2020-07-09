@@ -71,14 +71,17 @@
 - job:
     name: devstack-plugin-nfs-tempest-full-ussuri
     parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-bionic
     override-checkout: stable/ussuri
 
 - job:
     name: devstack-plugin-nfs-tempest-full-train
     parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-bionic
     override-checkout: stable/train
 
 - job:
     name: devstack-plugin-nfs-tempest-full-stein
     parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-bionic
     override-checkout: stable/stein
