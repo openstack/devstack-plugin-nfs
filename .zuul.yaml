@@ -4,15 +4,19 @@
     check:
       jobs:
         - devstack-plugin-nfs-tempest-full
-        - devstack-plugin-nfs-tempest-full-ussuri
-        - devstack-plugin-nfs-tempest-full-train
-        - devstack-plugin-nfs-tempest-full-stein
+        - devstack-plugin-nfs-tempest-full-xena
+        - devstack-plugin-nfs-tempest-full-wallaby
+        - devstack-plugin-nfs-tempest-full-victoria
+        # ussuri disabled due to https://bugs.launchpad.net/nova/+bug/1916750
+        - devstack-plugin-nfs-tempest-full-ussuri:
+           voting: no
     gate:
       jobs:
         - devstack-plugin-nfs-tempest-full
-        - devstack-plugin-nfs-tempest-full-ussuri
-        - devstack-plugin-nfs-tempest-full-train
-        - devstack-plugin-nfs-tempest-full-stein
+        - devstack-plugin-nfs-tempest-full-xena
+        - devstack-plugin-nfs-tempest-full-wallaby
+        - devstack-plugin-nfs-tempest-full-victoria
+        # - devstack-plugin-nfs-tempest-full-ussuri
 
 - job:
     name: devstack-plugin-nfs-tempest-full
@@ -69,19 +73,25 @@
     branches: ^(?!stable/(ocata|pike|queens|rocky|stein|train)).*$
 
 - job:
+    name: devstack-plugin-nfs-tempest-full-xena
+    parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/xena
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-wallaby
+    parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/wallaby
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-victoria
+    parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/victoria
+
+- job:
     name: devstack-plugin-nfs-tempest-full-ussuri
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-bionic
     override-checkout: stable/ussuri
-
-- job:
-    name: devstack-plugin-nfs-tempest-full-train
-    parent: devstack-plugin-nfs-tempest-full
-    nodeset: openstack-single-node-bionic
-    override-checkout: stable/train
-
-- job:
-    name: devstack-plugin-nfs-tempest-full-stein
-    parent: devstack-plugin-nfs-tempest-full
-    nodeset: openstack-single-node-bionic
-    override-checkout: stable/stein
