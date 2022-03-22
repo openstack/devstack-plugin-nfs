@@ -69,6 +69,9 @@
         ENABLE_NFS_CINDER: true
         # enabled by default in tempest-full:
         ENABLE_VOLUME_MULTIATTACH: false
+      devstack_services:
+        # Disable horizon (inherited from the parent, not needed by the tests executed here)
+        horizon: false
     irrelevant-files: *gate-irrelevant-files
     branches: ^(?!stable/(ocata|pike|queens|rocky|stein|train)).*$
 
