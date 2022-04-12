@@ -81,7 +81,11 @@ function configure_tempest_nfs {
     iniset $TEMPEST_CONFIG volume-feature-enabled backup False
     iniset $TEMPEST_CONFIG volume-feature-enabled clone True
     iniset $TEMPEST_CONFIG volume-feature-enabled manage_snapshot False
-
+    if [[ "$TARGET_BRANCH" =~ master ]]; then
+        iniset $TEMPEST_CONFIG volume-feature-enabled volume_revert False
+    else
+        iniset $TEMPEST_CONFIG volume-feature-enabled volume_revert True
+    fi
     iniset $TEMPEST_CONFIG compute-feature-enabled attach_encrypted_volume False
 }
 
