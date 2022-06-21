@@ -12,6 +12,8 @@
         # ussuri disabled due to https://bugs.launchpad.net/nova/+bug/1916750
         - devstack-plugin-nfs-tempest-full-ussuri:
            voting: no
+        - devstack-plugin-nfs-tempest-full-fips:
+           voting: no
     gate:
       jobs:
         - devstack-plugin-nfs-tempest-full
@@ -21,6 +23,7 @@
         - devstack-plugin-nfs-tempest-full-wallaby
         - devstack-plugin-nfs-tempest-full-victoria
         # - devstack-plugin-nfs-tempest-full-ussuri
+        # - devstack-plugin-nfs-tempest-full-fips
 
 - job:
     name: devstack-plugin-nfs-tempest-full
@@ -118,3 +121,12 @@
     override-checkout: stable/ussuri
     vars:
       tox_envlist: full
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-fips
+    parent: devstack-plugin-nfs-tempest-full
+    nodeset: devstack-single-node-centos-9-stream
+    pre-run: playbooks/enable-fips.yaml
+    vars:
+      configure_swap_size: 4096
+      nslookup_target: 'opendev.org'
