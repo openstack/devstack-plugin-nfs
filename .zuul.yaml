@@ -4,6 +4,8 @@
     check:
       jobs:
         - devstack-plugin-nfs-tempest-full
+        - devstack-plugin-nfs-tempest-full-zed
+        - devstack-plugin-nfs-tempest-full-yoga
         - devstack-plugin-nfs-tempest-full-xena
         - devstack-plugin-nfs-tempest-full-wallaby
         - devstack-plugin-nfs-tempest-full-victoria
@@ -13,6 +15,8 @@
     gate:
       jobs:
         - devstack-plugin-nfs-tempest-full
+        - devstack-plugin-nfs-tempest-full-zed
+        - devstack-plugin-nfs-tempest-full-yoga
         - devstack-plugin-nfs-tempest-full-xena
         - devstack-plugin-nfs-tempest-full-wallaby
         - devstack-plugin-nfs-tempest-full-victoria
@@ -74,6 +78,16 @@
         horizon: false
     irrelevant-files: *gate-irrelevant-files
     branches: ^(?!stable/(ocata|pike|queens|rocky|stein|train)).*$
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-zed
+    parent: devstack-plugin-nfs-tempest-full
+    override-checkout: stable/zed
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-yoga
+    parent: devstack-plugin-nfs-tempest-full
+    override-checkout: stable/yoga
 
 - job:
     name: devstack-plugin-nfs-tempest-full-xena
