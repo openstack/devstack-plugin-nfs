@@ -100,15 +100,21 @@
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-focal
     override-checkout: stable/wallaby
+    vars:
+      tox_envlist: full
 
 - job:
     name: devstack-plugin-nfs-tempest-full-victoria
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-focal
     override-checkout: stable/victoria
+    vars:
+      tox_envlist: full
 
 - job:
     name: devstack-plugin-nfs-tempest-full-ussuri
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-bionic
     override-checkout: stable/ussuri
+    vars:
+      tox_envlist: full
