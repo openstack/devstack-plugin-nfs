@@ -6,13 +6,11 @@
         - devstack-plugin-nfs-tempest-full
         - devstack-plugin-nfs-tempest-full-2023-1
         - devstack-plugin-nfs-tempest-full-zed
-        - devstack-plugin-nfs-tempest-full-yoga
+        - devstack-plugin-nfs-tempest-full-yoga:
+           voting: no
         - devstack-plugin-nfs-tempest-full-xena
         - devstack-plugin-nfs-tempest-full-wallaby
         - devstack-plugin-nfs-tempest-full-victoria
-        # ussuri disabled due to https://bugs.launchpad.net/nova/+bug/1916750
-        - devstack-plugin-nfs-tempest-full-ussuri:
-           voting: no
         - devstack-plugin-nfs-tempest-full-fips:
            voting: no
     gate:
@@ -20,44 +18,11 @@
         - devstack-plugin-nfs-tempest-full
         - devstack-plugin-nfs-tempest-full-2023-1
         - devstack-plugin-nfs-tempest-full-zed
-        - devstack-plugin-nfs-tempest-full-yoga
+        # - devstack-plugin-nfs-tempest-full-yoga
         - devstack-plugin-nfs-tempest-full-xena
         - devstack-plugin-nfs-tempest-full-wallaby
         - devstack-plugin-nfs-tempest-full-victoria
-        # - devstack-plugin-nfs-tempest-full-ussuri
         # - devstack-plugin-nfs-tempest-full-fips
-
-- job:
-    name: devstack-plugin-nfs-tempest-full
-    parent: tempest-full
-    description: |
-      tempest-full job based on NFS with py2.
-      Former names for this job where:
-        * legacy-tempest-dsvm-full-devstack-plugin-nfs
-    timeout: 10800
-    required-projects:
-      - opendev.org/openstack/devstack-plugin-nfs
-    host-vars:
-      controller:
-        devstack_plugins:
-          devstack-plugin-nfs: https://opendev.org/openstack/devstack-plugin-nfs
-    vars:
-      devstack_localrc:
-        ENABLE_NFS_CINDER: true
-        # enabled by default in tempest-full:
-        ENABLE_VOLUME_MULTIATTACH: false
-    irrelevant-files: &gate-irrelevant-files
-      - ^.*\.rst$
-      - ^doc/.*$
-      - ^(test-|)requirements.txt$
-      - ^setup.cfg$
-    branches:
-      - stable/ocata
-      - stable/pike
-      - stable/queens
-      - stable/rocky
-      - stable/stein
-      - stable/train
 
 - job:
     name: devstack-plugin-nfs-tempest-full
@@ -81,8 +46,11 @@
       devstack_services:
         # Disable horizon (inherited from the parent, not needed by the tests executed here)
         horizon: false
-    irrelevant-files: *gate-irrelevant-files
-    branches: ^(?!stable/(ocata|pike|queens|rocky|stein|train)).*$
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^(test-|)requirements.txt$
+      - ^setup.cfg$
 
 - job:
     name: devstack-plugin-nfs-tempest-full-2023-1
@@ -97,7 +65,7 @@
 - job:
     name: devstack-plugin-nfs-tempest-full-yoga
     parent: devstack-plugin-nfs-tempest-full
-    override-checkout: stable/yoga
+    override-checkout: unmaintained/yoga
 
 - job:
     name: devstack-plugin-nfs-tempest-full-xena
@@ -118,14 +86,6 @@
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-focal
     override-checkout: stable/victoria
-    vars:
-      tox_envlist: full
-
-- job:
-    name: devstack-plugin-nfs-tempest-full-ussuri
-    parent: devstack-plugin-nfs-tempest-full
-    nodeset: openstack-single-node-bionic
-    override-checkout: stable/ussuri
     vars:
       tox_envlist: full
 
