@@ -4,24 +4,32 @@
     check:
       jobs:
         - devstack-plugin-nfs-tempest-full
+        - devstack-plugin-nfs-tempest-full-2024-1
+        - devstack-plugin-nfs-tempest-full-2023-2
         - devstack-plugin-nfs-tempest-full-2023-1
-        - devstack-plugin-nfs-tempest-full-zed
+        - devstack-plugin-nfs-tempest-full-zed:
+           voting: no
         - devstack-plugin-nfs-tempest-full-yoga:
            voting: no
-        - devstack-plugin-nfs-tempest-full-xena
-        - devstack-plugin-nfs-tempest-full-wallaby
-        - devstack-plugin-nfs-tempest-full-victoria
+        - devstack-plugin-nfs-tempest-full-xena:
+           voting: no
+        - devstack-plugin-nfs-tempest-full-wallaby:
+           voting: no
+        - devstack-plugin-nfs-tempest-full-victoria:
+           voting: no
         - devstack-plugin-nfs-tempest-full-fips:
            voting: no
     gate:
       jobs:
         - devstack-plugin-nfs-tempest-full
+        - devstack-plugin-nfs-tempest-full-2024-1
+        - devstack-plugin-nfs-tempest-full-2023-2
         - devstack-plugin-nfs-tempest-full-2023-1
-        - devstack-plugin-nfs-tempest-full-zed
+        # - devstack-plugin-nfs-tempest-full-zed
         # - devstack-plugin-nfs-tempest-full-yoga
-        - devstack-plugin-nfs-tempest-full-xena
-        - devstack-plugin-nfs-tempest-full-wallaby
-        - devstack-plugin-nfs-tempest-full-victoria
+        # - devstack-plugin-nfs-tempest-full-xena
+        # - devstack-plugin-nfs-tempest-full-wallaby
+        # - devstack-plugin-nfs-tempest-full-victoria
         # - devstack-plugin-nfs-tempest-full-fips
 
 - job:
@@ -53,6 +61,16 @@
       - ^setup.cfg$
 
 - job:
+    name: devstack-plugin-nfs-tempest-full-2024-1
+    parent: devstack-plugin-nfs-tempest-full
+    override-checkout: stable/2024.1
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-2023-2
+    parent: devstack-plugin-nfs-tempest-full
+    override-checkout: stable/2023.2
+
+- job:
     name: devstack-plugin-nfs-tempest-full-2023-1
     parent: devstack-plugin-nfs-tempest-full
     override-checkout: stable/2023.1
@@ -60,24 +78,26 @@
 - job:
     name: devstack-plugin-nfs-tempest-full-zed
     parent: devstack-plugin-nfs-tempest-full
-    override-checkout: stable/zed
+    nodeset: openstack-single-node-focal
+    override-checkout: unmaintained/zed
 
 - job:
     name: devstack-plugin-nfs-tempest-full-yoga
     parent: devstack-plugin-nfs-tempest-full
+    nodeset: openstack-single-node-focal
     override-checkout: unmaintained/yoga
 
 - job:
     name: devstack-plugin-nfs-tempest-full-xena
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-focal
-    override-checkout: stable/xena
+    override-checkout: unmaintained/xena
 
 - job:
     name: devstack-plugin-nfs-tempest-full-wallaby
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-focal
-    override-checkout: stable/wallaby
+    override-checkout: unmaintained/wallaby
     vars:
       tox_envlist: full
 
@@ -85,7 +105,7 @@
     name: devstack-plugin-nfs-tempest-full-victoria
     parent: devstack-plugin-nfs-tempest-full
     nodeset: openstack-single-node-focal
-    override-checkout: stable/victoria
+    override-checkout: unmaintained/victoria
     vars:
       tox_envlist: full
 
