@@ -35,6 +35,7 @@
         * legacy-tempest-dsvm-full-devstack-plugin-nfs
     timeout: 10800
     required-projects:
+      - opendev.org/openstack/cinder-tempest-plugin
       - opendev.org/openstack/devstack-plugin-nfs
     host-vars:
       controller:
@@ -46,9 +47,23 @@
         # enabled by default in tempest-full:
         ENABLE_VOLUME_MULTIATTACH: false
         TEMPEST_VOLUME_REVERT_TO_SNAPSHOT: true
+      devstack_local_conf:
+        post-config:
+          $CINDER_CONF:
+            nfs:
+              # Setting nfs vers=4.2 in combination with nconnect=4 helps improving
+              # test stability by preventing stalls on large write operations on
+              # Ubuntu "Noble" and Centos 9
+              nfs_mount_options: vers=4.2,nconnect=4
       devstack_services:
         # Disable horizon (inherited from the parent, not needed by the tests executed here)
         horizon: false
+      tox_envlist: all
+      tempest_test_regex: |
+        (^tempest\.(api|scenario|serial_tests)|(^cinder_tempest_plugin))
+      tempest_test_exclude_list: '{{ ansible_user_dir }}/{{ zuul.projects["opendev.org/openstack/tempest"].src_dir }}/tools/tempest-integrated-gate-storage-exclude-list.txt'
+      tempest_plugins:
+        - cinder-tempest-plugin
     irrelevant-files:
       - ^.*\.rst$
       - ^doc/.*$
