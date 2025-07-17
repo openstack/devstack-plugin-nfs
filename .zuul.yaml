@@ -7,7 +7,9 @@
         - devstack-plugin-nfs-tempest-full-2025-1
         - devstack-plugin-nfs-tempest-full-2024-2
         - devstack-plugin-nfs-tempest-full-2024-1
-        - devstack-plugin-nfs-tempest-full-fips:
+        - devstack-plugin-nfs-tempest-full-fips-2025-1:
+           voting: no
+        - devstack-plugin-nfs-tempest-full-fips-py311:
            voting: no
     gate:
       jobs:
@@ -56,6 +58,11 @@
 - job:
     name: devstack-plugin-nfs-tempest-full-2025-1
     parent: devstack-plugin-nfs-tempest-full
+    override-checkout: stable/2025.1
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-fips-2025-1
+    parent: devstack-plugin-nfs-tempest-full-fips
     override-checkout: stable/2025.1
 
 - job:
@@ -117,3 +124,14 @@
     vars:
       configure_swap_size: 4096
       nslookup_target: 'opendev.org'
+
+- job:
+    name: devstack-plugin-nfs-tempest-full-fips-py311
+    parent: devstack-plugin-nfs-tempest-full
+    nodeset: devstack-single-node-centos-9-stream
+    pre-run: playbooks/enable-fips.yaml
+    vars:
+      configure_swap_size: 4096
+      nslookup_target: 'opendev.org'
+      devstack_localrc:
+        PYTHON3_VERSION: 3.11
